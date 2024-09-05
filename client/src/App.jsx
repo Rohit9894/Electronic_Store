@@ -1,12 +1,12 @@
-import React from 'react'
-import { Button } from './components/ui/button'
+import React from "react";
+import Navbar from "./components/Navbar";
 
 function App() {
   return (
     <div>
-      <Button>Teal</Button>
+      <Navbar />
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
