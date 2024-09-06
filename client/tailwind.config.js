@@ -6,13 +6,18 @@ export default {
     extend: {
       fontFamily: {
         roboto: ["Roboto", "sans-serif"],
+        outfit: ["Outfit", "sans-serif"],
       },
       container: {
         center: true,
-        padding: "2rem",
+        padding: "4rem",
         screens: {
           "2xl": "1400px",
         },
+      },
+      boxShadow: {
+        custom:
+          "rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px",
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -23,6 +28,7 @@ export default {
         background: "var(--background)",
         foreground: "var(--foreground)",
         input_bg: "#F1F1F1",
+
         card: {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
