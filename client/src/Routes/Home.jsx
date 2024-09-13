@@ -1,3 +1,4 @@
+import Footer from "@/components/Footer";
 import BestDealItem from "@/components/miscellaneous/BestDealItem";
 import QualityItem from "@/components/miscellaneous/QualityItem";
 import { MultiSlider } from "@/components/Slider/MultiSlider";
@@ -104,6 +105,9 @@ function Home() {
           </div>
         </div>
       </section>
+
+      {/* footer */}
+      <Footer />
     </div>
   );
 }

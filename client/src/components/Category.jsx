@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 function Category() {
   const category = [
@@ -19,8 +20,8 @@ function Category() {
     },
     {
       id: 4,
-      title: "Computer",
-      to: "/",
+      title: "Laptop",
+      to: "/laptop",
     },
     {
       id: 5,
@@ -46,12 +47,14 @@ function Category() {
   return (
     <div className=" container custom_center justify-between mt-5">
       {category.map((item) => (
-        <p
-          key={item.id}
-          className="text-sm p-2 cursor-pointer hover:bg-background hover:text-white hover:rounded-lg "
-        >
-          {item.title}
-        </p>
+        <Link to={item?.to}>
+          <p
+            key={item.id}
+            className="text-sm p-2 cursor-pointer hover:bg-background hover:text-white hover:rounded-lg "
+          >
+            {item.title}
+          </p>
+        </Link>
       ))}
     </div>
   );

@@ -28,6 +28,8 @@ export default {
         background: "var(--background)",
         foreground: "var(--foreground)",
         input_bg: "#F1F1F1",
+        teal:"#878787",
+      
 
         card: {
           DEFAULT: "hsl(var(--card))",
