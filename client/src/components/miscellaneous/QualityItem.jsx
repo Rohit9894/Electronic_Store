@@ -3,13 +3,13 @@ import React from "react";
 
 function QualityItem({ icon, title, subTitle }) {
   return (
-    <div className="w-1/6 text-center  relative py-6 shadow-custom">
+    <div className="text-center   py-6 px-2 shadow-custom">
       {icon == "truck" && (
         <Truck
           fill="#ff7020"
           color="#ff7020"
           size={40}
-          className="absolute -top-5 left-16 z-10"
+          className="mx-auto -mt-12"
         />
       )}
       {icon == "star" && (
@@ -17,7 +17,7 @@ function QualityItem({ icon, title, subTitle }) {
           fill="#ff7020"
           color="#ff7020"
           size={40}
-          className="absolute -top-5 left-16 z-10"
+          className="mx-auto -mt-12"
         />
       )}
       {icon == "clock" && (
@@ -25,7 +25,7 @@ function QualityItem({ icon, title, subTitle }) {
           // fill="#ff7020"
           color="#ff7020"
           size={40}
-          className="absolute -top-5 left-16 z-10"
+          className="mx-auto -mt-12"
         />
       )}
       {icon == "price" && (
@@ -33,7 +33,7 @@ function QualityItem({ icon, title, subTitle }) {
           // fill="#ff7020"
           color="#ff7020"
           size={40}
-          className="absolute -top-5 left-16 z-10"
+          className="mx-auto -mt-12"
         />
       )}
       {icon == "payment" && (
@@ -41,7 +41,7 @@ function QualityItem({ icon, title, subTitle }) {
           fill="#ff7020"
           color="#ff7020"
           size={40}
-          className="absolute -top-5 left-16 z-10"
+          className="mx-auto -mt-12"
         />
       )}
       <h1 className="font-bold">{title}</h1>

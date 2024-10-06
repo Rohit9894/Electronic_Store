@@ -6,7 +6,7 @@ import { InstagramLogoIcon, TwitterLogoIcon } from "@radix-ui/react-icons";
 function Footer() {
   return (
     <footer className=" py-5 mt-24 ">
-      <div class="container grid grid-cols-6 grid-rows-1 gap-12">
+      <div class="container grid grid-cols-2 lg:grid-cols-6 grid-rows-1 gap-12">
         <div class="  col-span-2  ">
           <Logo />
           <p className="text-sm text-teal font-light mt-2.5">
