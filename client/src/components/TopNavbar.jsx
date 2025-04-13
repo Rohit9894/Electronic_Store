@@ -3,7 +3,7 @@ import { ChevronDown, Mail, Navigation, Phone } from "lucide-react";
 
 function TopNavbar() {
   return (
-    <div className="h-4 w-screen bg-background py-6 text-sm text-white">
+    <div className="h-4 w-screen bg-primary py-6 text-sm text-primary-foreground">
       <div className="container h-full custom_center justify-between">
         <div className="custom_center gap-6">
           <div className="flex gap-2 items-center">

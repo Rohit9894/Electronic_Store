@@ -6,6 +6,10 @@ import { MultiItemSlider } from "@/components/Slider/MutliItemSlider";
 import { SaleSlider } from "@/components/Slider/SaleSlider";
 import Slider from "@/components/Slider/Slider";
 import { Button } from "@/components/ui/button";
+import { readFileAsDataUrl } from "@/lib/utils";
+import { Cloudinary } from "@cloudinary/url-gen";
+import { auto } from "@cloudinary/url-gen/actions/resize";
+import { autoGravity } from "@cloudinary/url-gen/qualifiers/gravity";
 import {
   ChevronLeft,
   ChevronLeftCircle,
@@ -14,14 +18,62 @@ import {
   Truck,
 } from "lucide-react";
 
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 
 function Home() {
+  let baseUrl = import.meta.env.VITE_BASEURL;
   const left = useRef();
   const right = useRef();
-  // const leftDisabled = left.current.disabled;
+  const [url, setUrl] = useState("");
+
+  async function uploadImage(e) {
+    const file = e.target.files[0];
+    const data = new FormData();
+    data.append("file", file);
+    data.append("upload_preset", "upload_image_file");
+    data.append("cloud_name", "dj90dxawo");
+    const res = await fetch(
+      "https://api.cloudinary.com/v1_1/dj90dxawo/image/upload",
+      {
+        method: "POST",
+        body: data,
+      }
+    );
+    const uploadImage = await res.json();
+    console.log(uploadImage.url);
+
+    // if (file) {
+    //   const imageUrl = await readFileAsDataUrl(file);
+    //   setUrl(imageUrl);
+    //   covertImage(imageUrl);
+    // }
+  } // const leftDisabled = left.current.disabled;
   // const rightDisabled = right.current.disabled;
 
+  // function postData(data) {
+  //   console.log(data);
+  //   fetch(`${baseUrl}/product/add`, {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify(data),
+  //   })
+  //     .then((res) => res.json())
+  //     .then((data) => console.log(data))
+  //     .catch((err) => console.log(err));
+  // }
+
+  // cloudinary Logic
+  // function covertImage(data) {
+  //   const cld = new Cloudinary({ cloud: { cloudName: "dj90dxawo" } });
+  //   const img = cld
+  //     .image("")
+  //     .format("auto")
+  //     .quality("auto")
+  //     .resize(auto().gravity(autoGravity()).width(500).height(500));
+  //   console.log(img);
+  // }
   return (
     <div>
       {/* Slider */}
@@ -30,7 +82,7 @@ function Home() {
       </div>
       {/* Best Deals */}
       <section className="container mt-24 " id="best deals">
-        <h1 className="text-2xl font-bold">Best Deals</h1>
+        <h1 className="text-2xl font-bold text-primary">Best Deals</h1>
         <div className="grid grid-cols-2 gap-6 lg:grid-cols-4">
           {Array.from({ length: 4 }).map((_, index) => (
             <BestDealItem />
@@ -40,9 +92,9 @@ function Home() {
 
       {/* Top Slected Deals */}
       <section className="bg-input_bg py-8  mt-24">
-      <div className=" container w-full py-4 md:h-60 rounded-lg flex md:!flex-row flex-col md:items-center gap-8">
-      <div className="w-full md:w-1/4 h-full flex flex-col justify-center gap-6">
-            <h1 className="text-2xl font-semibold md:w-[200px] leading-7 ">
+        <div className=" container w-full py-4 md:h-60 rounded-lg flex md:!flex-row flex-col md:items-center gap-8">
+          <div className="w-full md:w-1/4 h-full flex flex-col justify-center gap-6">
+            <h1 className="text-2xl text-primary font-semibold md:w-[200px] leading-7 ">
               Top 10 Product Selected On The Week
             </h1>
             <div className="custom_center gap-2 -mt-4">
@@ -64,7 +116,7 @@ function Home() {
 
       {/* Popular Search */}
       <section className="container mt-24 " id="best deals">
-        <h1 className="text-2xl font-bold">Popular Search</h1>
+        <h1 className="text-2xl text-primary font-bold">Popular Search</h1>
         <div className="mt-10">
           <MultiItemSlider />
         </div>
@@ -87,9 +139,9 @@ function Home() {
         <QualityItem icon="payment" title={"Payment"} subTitle={"Secure"} />
       </section>
       {/* Flash Sale */}
-      <section className="container mt-24">
-      <div className="w-full bg-background py-4 md:h-60 rounded-lg flex md:!flex-row flex-col md:items-center gap-8">
-      <div className="w-full lg:w-1/3 text-white pl-10">
+      <section className="container mt-24 bg-primary">
+        <div className="w-full bg-background py-4 md:h-60 rounded-lg flex md:!flex-row flex-col md:items-center gap-8">
+          <div className="w-full lg:w-1/3 text-white pl-10">
             <h1 className="text-2xl font-semibold">Flash Sale</h1>
             <p className="text-sm font-light mt-5">
               Don't miss out on our incredible electronics sale! Get up to 50%
@@ -105,8 +157,11 @@ function Home() {
         </div>
       </section>
 
-      {/* footer */}
-      {/* <Footer /> */}
+      {/* <div>
+        <h1>Rough Work</h1>
+        <input onChange={uploadImage} type="file" />
+        <img src={url} alt="Preview" />
+      </div> */}
     </div>
   );
 }

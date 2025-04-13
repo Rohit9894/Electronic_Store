@@ -6,15 +6,15 @@ import React from "react";
 function SingleItem() {
   return (
     <div className="container mt-10">
-      <section className="flex gap-10" id="product details">
-        <div className="w-1/2">
+      <section className="flex md:flex-row flex-col md:items-center gap-10" id="product details">
+        <div className="w-full md:w-1/2">
           <img
             src="https://images.unsplash.com/photo-1622782914767-404fb9ab3f57?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fG1vYmlsZXxlbnwwfHwwfHx8MA%3D%3D"
             alt="image"
             className="w-full max-h-[350px] object-cover rounded-t-lg "
           />
         </div>
-        <div className="w-1/2">
+        <div className="w-full md:w-1/2">
           <div className="text-left">
             <h1 className="text-lg mb-1  font-semibold">HP Pavillion</h1>
             <div className="custom_center gap-10">
@@ -50,23 +50,24 @@ function SingleItem() {
           </ul>
 
           {/* buttons */}
-          <div className="custom_center justify-between mt-10">
+          <div className="flex-col justify-between mt-10">
             {/* Quantity Update */}
             <div className="flex text-teal items-center py-2 px-4 justify-between w-40 border-2 5 border-teal border-solid rounded-md">
               <Minus cursor={"pointer"} size={"20px"} />
               <span className="text-black"> 1</span>
               <Plus cursor={"pointer"} size={"20px"} />
             </div>
-            <div className="custom_center gap-4">
+            <div className="custom_center justify-between md:gap-4 mt-4">
+            <Button className="text-light py-5 px-8 border-2 border-background bg-background">
+                ADD TO CART
+              </Button>
               <Button
                 variant="outline"
                 className="bg-white py-5 border-2 border-background text-background  px-8 "
               >
                 BUY
               </Button>
-              <Button className="text-light py-5 px-8 border-2 border-background bg-background">
-                ADD TO CART
-              </Button>
+          
             </div>
           </div>
         </div>

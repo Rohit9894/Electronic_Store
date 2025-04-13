@@ -63,7 +63,7 @@ function PlaceOrder() {
           <input className="size-3.5 cursor-pointer" type="checkbox" />
           <p className="text-sm">Cash On Delivery</p>
         </div>
-        <Button className="bg-background w-full my-6">Place Order</Button>
+        <Button className="w-full my-6">Place Order</Button>
       </div>
     </div>
   );

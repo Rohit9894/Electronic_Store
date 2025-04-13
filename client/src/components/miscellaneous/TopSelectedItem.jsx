@@ -13,7 +13,7 @@ function TopSlectedItem() {
       <div className="py-4 px-4">
         <h1 className="text-md mb-4  font-semibold">Smart Watch</h1>
         <div className="flex justify-between">
-          <h2 className="text-sm font-medium text-background mb-2">₹ 1999 <span className="line-through text-teal-500 ml-2">₹ 9999</span></h2>
+          <h2 className="text-sm font-medium text-primary mb-2">₹ 1999 <span className="line-through text-destructive ml-2">₹ 9999</span></h2>
           <Rating />
         </div>
       </div>

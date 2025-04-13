@@ -8,7 +8,7 @@ function ProductItem() {
   let text =
     "Intel Core i5 10th Gen 1035G1 - (16 GB/512 GB SSD/Windows 11 Home) CoreBook X Grey Laptop (14 inch, Grey, 1.40 kg)";
   return (
-    <div className="w-full h-max-content  flex flex-col justify-between  bg-white rounded-lg shadow-custom cursor-pointer">
+    <div className="h-max-content  flex flex-col justify-between  bg-white rounded-lg shadow-custom cursor-pointer">
       <img
         src="https://images.unsplash.com/photo-1622782914767-404fb9ab3f57?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fG1vYmlsZXxlbnwwfHwwfHx8MA%3D%3D"
         alt="image"

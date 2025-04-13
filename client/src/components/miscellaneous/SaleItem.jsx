@@ -16,12 +16,12 @@ function SaleItem() {
           <h1 className=" font-semibold">Fitness and activity tracker</h1>
         </div>
         <div>
-          <h2 className="text-md font-medium text-background mb-2">
+          <h2 className="text-md font-medium text-primary mb-2">
             ₹ 1999{" "}
-            <span className="line-through text-sm text-teal-500 ml-2">₹ 9999</span>
+            <span className="line-through text-sm text-destructive ml-2">₹ 9999</span>
           </h2>
           <Rating />
-          <p className="text-sm text-red-500">Hurry only few left</p>
+          <p className="text-sm text-destructive">Hurry only few left</p>
           <Button className="bg-background mt-2">Buy Now</Button>
         </div>
       </div>

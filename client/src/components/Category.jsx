@@ -45,12 +45,12 @@ function Category() {
     },
   ];
   return (
-    <div className=" container custom_center justify-between mt-5">
+    <div className=" container custom_center justify-between mt-5 overflow-auto">
       {category.map((item) => (
         <Link to={item?.to}>
           <p
             key={item.id}
-            className="text-sm p-2 cursor-pointer hover:bg-background hover:text-white hover:rounded-lg "
+            className="text-muted bg-muted-foreground text-sm px-2 py-1 cursor-pointer rounded-lg whitespace-nowrap hover:bg-accent-foreground"
           >
             {item.title}
           </p>

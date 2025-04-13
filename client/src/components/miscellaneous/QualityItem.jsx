@@ -1,51 +1,41 @@
-import { BadgeIndianRupee, Clock, History, Star, Truck, Wallet } from "lucide-react";
+import {
+  BadgeIndianRupee,
+  Clock,
+  History,
+  Star,
+  Truck,
+  Wallet,
+} from "lucide-react";
 import React from "react";
 
 function QualityItem({ icon, title, subTitle }) {
   return (
-    <div className="text-center   py-6 px-2 shadow-custom">
+    <div className="text-center py-6 px-2 shadow-custom">
       {icon == "truck" && (
         <Truck
-          fill="#ff7020"
-          color="#ff7020"
+          fill="hsl(221.2 83.2% 53.3%)"
           size={40}
-          className="mx-auto -mt-12"
+          className="mx-auto -mt-12 text-primary"
         />
       )}
       {icon == "star" && (
         <Star
-          fill="#ff7020"
-          color="#ff7020"
+          fill="hsl(221.2 83.2% 53.3%)"
           size={40}
-          className="mx-auto -mt-12"
+          className="mx-auto -mt-12 text-primary"
         />
       )}
       {icon == "clock" && (
-        <History
-          // fill="#ff7020"
-          color="#ff7020"
-          size={40}
-          className="mx-auto -mt-12"
-        />
+        <History size={40} className="mx-auto -mt-12 text-primary" />
       )}
       {icon == "price" && (
-        <BadgeIndianRupee
-          // fill="#ff7020"
-          color="#ff7020"
-          size={40}
-          className="mx-auto -mt-12"
-        />
+        <BadgeIndianRupee size={40} className="mx-auto -mt-12 text-primary" />
       )}
       {icon == "payment" && (
-        <Wallet
-          fill="#ff7020"
-          color="#ff7020"
-          size={40}
-          className="mx-auto -mt-12"
-        />
+        <Wallet size={40} className="mx-auto -mt-12 text-primary" />
       )}
       <h1 className="font-bold">{title}</h1>
-      <span className="text-sm text-teal-500">{subTitle}</span>
+      <span className="text-sm text-muted-foreground">{subTitle}</span>
     </div>
   );
 }

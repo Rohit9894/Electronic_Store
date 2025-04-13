@@ -12,8 +12,8 @@ function PopularSearchItem() {
       />
       <div className="py-4 px-4 text-center">
         <div className="">
-          <h2 className="font-medium text-background mb-2">₹ 1999 </h2>
-          <h3 className="text-sm line-through text-teal-500 ml-2">₹ 9999</h3>
+          <h2 className="font-medium text-primary mb-2">₹ 1999 </h2>
+          <h3 className="text-sm line-through text-destructive ml-2">₹ 9999</h3>
         </div>
         <h1 className="text-md mb-4  font-semibold">Smart Watch</h1>
       </div>

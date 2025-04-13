@@ -5,11 +5,13 @@ import Laptop from "./Laptop";
 import SingleItem from "./SingleItem";
 import Checkout from "./Checkout";
 import PlaceOrder from "./PlaceOrder";
+import Auth from "./Auth";
 
 function AllRoutes() {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
+      <Route path="/login" element={<Auth />} />
       <Route path="/laptop" element={<Laptop />} />
       <Route path="/laptop/:id" element={<SingleItem />} />
       <Route path="/checkout" element={<Checkout />} />
