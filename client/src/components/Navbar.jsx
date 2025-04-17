@@ -1,4 +1,3 @@
-import React from "react";
 import TopNavbar from "./TopNavbar";
 import Logo from "./miscellaneous/Logo";
 import { Input } from "./ui/input";

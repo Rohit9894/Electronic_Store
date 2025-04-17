@@ -1,4 +1,3 @@
-import React from "react";
 import { Link } from "react-router-dom";
 
 function Category() {
@@ -47,7 +46,7 @@ function Category() {
   return (
     <div className=" container custom_center justify-between mt-5 overflow-auto">
       {category.map((item) => (
-        <Link to={item?.to}>
+        <Link key={item.id} to={item?.to}>
           <p
             key={item.id}
             className="text-muted bg-muted-foreground text-sm px-2 py-1 cursor-pointer rounded-lg whitespace-nowrap hover:bg-accent-foreground"

@@ -1,4 +1,4 @@
-import React from "react";
+
 import {
   Card,
   CardContent,
@@ -11,40 +11,26 @@ import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import { Label } from "./ui/label";
 import { useForm } from "react-hook-form";
-import { signup } from "@/api/authApi";
-import { useToast } from "@/hooks/use-toast";
 import { useNavigate } from "react-router-dom";
+import { signupUser } from "@/features/auth/auth.slice";
+
+import { useDispatch, useSelector } from "react-redux";
 function SignUp() {
-  const { toast } = useToast();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const {
     register,
     handleSubmit,
-    watch,
+
     formState: { errors },
   } = useForm();
+  const isLoading = useSelector((store) => store.auth.loading);
   async function formSubmit(data) {
-    try {
-      const res = await signup(data);
-      if (res?.msg == "Register sucessfully") {
-        toast({
-          title: "✅ Registered successfully!",
-          duration: 3000,
-        });
-       return navigate("/", { replace: true });
+    dispatch(signupUser(data)).then((res) => {
+      if (res.meta.requestStatus === "fulfilled") {
+        navigate("/", { replace: true });
       }
-    } catch (err) {
-    
-      if (err?.msg == "User already exists") {
-       return toast({
-          variant: "destructive",
-          title: "User already exist",
-          duration: 3000,
-        });
-      } else {
-        console.log(err);
-      }
-    }
+    });
   }
 
   return (
@@ -117,7 +103,9 @@ function SignUp() {
           </div>
         </CardContent>
         <CardFooter>
-          <Button className="w-full">Create Account</Button>
+          <Button disabled={isLoading} className="w-full">
+            Create Account
+          </Button>
         </CardFooter>
       </form>
     </Card>

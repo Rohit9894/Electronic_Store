@@ -1,4 +1,3 @@
-import React from "react";
 import {
   Card,
   CardContent,
@@ -11,41 +10,29 @@ import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import { Label } from "./ui/label";
 import { useForm } from "react-hook-form";
-import { login } from "@/api/authApi";
-import { useToast } from "@/hooks/use-toast";
+
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { loginUser } from "@/features/auth/auth.slice";
+
 
 function Login() {
   const {
     register,
     handleSubmit,
-    watch,
+
     formState: { errors },
   } = useForm();
-  const { toast } = useToast();
-  const navigate = useNavigate();
-  async function formSubmit(data) {
-    try {
-      const res = await login(data);
 
-      if (res?.msg == "Login successfully") {
-        toast({
-          title: "✅ Login successfully!",
-          duration: 3000,
-        });
-        return navigate("/", { replace: true });
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const isLoading = useSelector((store) => store.auth.loading);
+  async function formSubmit(data) {
+    dispatch(loginUser(data)).then((res) => {
+      if (res.meta.requestStatus === "fulfilled") {
+        navigate("/", { replace: true }); // ✅ here
       }
-    } catch (err) {
-      if (err?.msg == "Invalid credetials") {
-        toast({
-          variant: "destructive",
-          title: "Your username or password may be incorrect!",
-          duration: 3000,
-        });
-      } else {
-        console.log(err);
-      }
-    }
+    });
   }
 
   return (
@@ -97,7 +84,9 @@ function Login() {
           </div>
         </CardContent>
         <CardFooter>
-          <Button className="w-full">Create Account</Button>
+          <Button disabled={isLoading} className="w-full">
+            Create Account
+          </Button>
         </CardFooter>
       </form>
     </Card>

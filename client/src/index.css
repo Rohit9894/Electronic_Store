@@ -70,6 +70,9 @@
   .custom_border {
     @apply border border-black;
   }
+  .custom-cursor {
+    cursor: progress !important;
+  }
 }
 
 body {
