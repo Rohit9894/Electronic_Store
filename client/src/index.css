@@ -73,9 +73,23 @@
   .custom-cursor {
     cursor: progress !important;
   }
+  .sort-and-popularity-item{
+    @apply font-light border-b-2 border-transparent pb-1 cursor-pointer;
+
+  }
+  .active-sort-and-popularity-item{
+    @apply border-b-2 border-primary pb-1 text-primary font-medium;
+
+  }
 }
 
 body {
   background-color: hsl(var(--background)); /* White background */
   color: hsl(var(--foreground)); /* Dark text */
 }
+
+.react-simple-star-rating .style-module_emptyIcons__Bg-FZ {
+  display: flex !important;
+  border: 1px solid black;
+}
+
