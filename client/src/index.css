@@ -73,13 +73,11 @@
   .custom-cursor {
     cursor: progress !important;
   }
-  .sort-and-popularity-item{
+  .sort-and-popularity-item {
     @apply font-light border-b-2 border-transparent pb-1 cursor-pointer;
-
   }
-  .active-sort-and-popularity-item{
+  .active-sort-and-popularity-item {
     @apply border-b-2 border-primary pb-1 text-primary font-medium;
-
   }
 }
 
@@ -92,4 +90,3 @@ body {
   display: flex !important;
   border: 1px solid black;
 }
-

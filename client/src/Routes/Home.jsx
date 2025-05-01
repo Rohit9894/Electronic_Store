@@ -6,6 +6,7 @@ import { MultiItemSlider } from "@/components/Slider/MutliItemSlider";
 import { SaleSlider } from "@/components/Slider/SaleSlider";
 import Slider from "@/components/Slider/Slider";
 import { Button } from "@/components/ui/button";
+import { fetchContentBlocks } from "@/features/contentBlock/contentBlock.slice";
 import { readFileAsDataUrl } from "@/lib/utils";
 import { Cloudinary } from "@cloudinary/url-gen";
 import { auto } from "@cloudinary/url-gen/actions/resize";
@@ -18,9 +19,12 @@ import {
   Truck,
 } from "lucide-react";
 
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 function Home() {
+  const dispatch = useDispatch();
+  const { data, loading, error } = useSelector((store) => store.contentBlocks);
   let baseUrl = import.meta.env.VITE_BASEURL;
   const left = useRef();
   const right = useRef();
@@ -74,11 +78,15 @@ function Home() {
   //     .resize(auto().gravity(autoGravity()).width(500).height(500));
   //   console.log(img);
   // }
+  useEffect(() => {
+    dispatch(fetchContentBlocks("homepage-hero-slider"));
+  }, [dispatch]);
+
   return (
     <div>
       {/* Slider */}
       <div className="container box-border">
-        <Slider />
+        <Slider data={data[0]} />
       </div>
       {/* Best Deals */}
       <section className="container mt-24 " id="best deals">

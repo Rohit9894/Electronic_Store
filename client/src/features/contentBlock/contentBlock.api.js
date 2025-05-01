@@ -1,8 +1,11 @@
 import axiosInstance from "@/services/axiosInstance";
 
-export const getProducts = async () => {
+export const getContentBlocks = async (query) => {
+  
   try {
-    const response = await axiosInstance.get("/product/products");
+    const response = await axiosInstance.get(
+      `/content-blocks?identifier=${query}`
+    );
     return response.data;
   } catch (error) {
     throw error.response?.data || error;

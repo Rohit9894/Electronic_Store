@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { login, signup } from "./authAPI";
+import { login, signup } from "./auth.api";
 import { toast } from "@/hooks/use-toast";
 
 export const signupUser = createAsyncThunk(
