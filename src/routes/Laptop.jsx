@@ -1,5 +1,6 @@
 import FilterSortAndPopularity from "@/components/miscellaneous/FilterSortAndPopularity";
 import ProductBanner from "@/components/miscellaneous/ProductBanner";
+import ProductItem from "@/components/miscellaneous/ProductItem";
 import LaptopSkeleton from "@/components/miscellaneous/skeleton/LaptopSkeleton";
 import SomeThingWentWrong from "@/components/miscellaneous/uiErrors/SomeThingWentWrong";
 import { Slider } from "@/components/ui/slider";

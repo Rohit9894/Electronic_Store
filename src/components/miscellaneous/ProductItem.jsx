@@ -6,7 +6,7 @@ import ReactStars from "react-rating-stars-component";
 import { convertIntoIndian, finalProductPrice } from "@/utils/formattedPrice";
 
 function ProductItem({ productData }) {
-  const { name, price, images, stock } =
+  const { name, price, images, stock , discountPercent } =
     productData;
   return (
     <div className="h-max-content  flex flex-col justify-between  bg-white rounded-lg shadow-md cursor-pointer">
