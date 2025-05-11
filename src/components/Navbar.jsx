@@ -10,7 +10,7 @@ function Navbar() {
   return (
     <nav>
       {/*Top Navbar*/}
-      <div>
+      <div className="hidden">
         <TopNavbar />
       </div>
       {/* Navbar */}
@@ -62,6 +62,7 @@ function Navbar() {
 
       {/* Category */}
       <Category />
+      
     </nav>
   );
 }

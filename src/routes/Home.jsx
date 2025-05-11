@@ -6,6 +6,7 @@ import { SaleSlider } from "@/components/Slider/SaleSlider";
 import Slider from "@/components/Slider/Slider";
 import { Button } from "@/components/ui/button";
 import { fetchContentBlocks } from "@/features/contentBlock/contentBlock.slice";
+import { fetchTagProducts } from "@/features/tagProduct/tagProduct.slice";
 
 import { auto } from "@cloudinary/url-gen/actions/resize";
 import { autoGravity } from "@cloudinary/url-gen/qualifiers/gravity";
@@ -19,80 +20,43 @@ import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 function Home() {
-  const dispatch = useDispatch();
-  const { data, loading, error } = useSelector((store) => store.contentBlocks);
   let baseUrl = import.meta.env.VITE_BASEURL;
+  const [url, setUrl] = useState("");
   const left = useRef();
   const right = useRef();
-  const [url, setUrl] = useState("");
+  const dispatch = useDispatch();
+  const {
+    data,
+    loading: contentBlockLoading,
+    error: contentBlockError,
+  } = useSelector((store) => store.contentBlocks);
+  const {
+    tagItems,
+    loading: tagProductsLoading,
+    error: tagProductsError,
+  } = useSelector((store) => store.tagProducts);
 
-  async function uploadImage(e) {
-    const file = e.target.files[0];
-    const data = new FormData();
-    data.append("file", file);
-    data.append("upload_preset", "upload_image_file");
-    data.append("cloud_name", "dj90dxawo");
-    const res = await fetch(
-      "https://api.cloudinary.com/v1_1/dj90dxawo/image/upload",
-      {
-        method: "POST",
-        body: data,
-      }
-    );
-    const uploadImage = await res.json();
-    console.log(uploadImage.url);
-
-    // if (file) {
-    //   const imageUrl = await readFileAsDataUrl(file);
-    //   setUrl(imageUrl);
-    //   covertImage(imageUrl);
-    // }
-  } // const leftDisabled = left.current.disabled;
-  // const rightDisabled = right.current.disabled;
-
-  // function postData(data) {
-  //   console.log(data);
-  //   fetch(`${baseUrl}/product/add`, {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify(data),
-  //   })
-  //     .then((res) => res.json())
-  //     .then((data) => console.log(data))
-  //     .catch((err) => console.log(err));
-  // }
-
-  // cloudinary Logic
-  // function covertImage(data) {
-  //   const cld = new Cloudinary({ cloud: { cloudName: "dj90dxawo" } });
-  //   const img = cld
-  //     .image("")
-  //     .format("auto")
-  //     .quality("auto")
-  //     .resize(auto().gravity(autoGravity()).width(500).height(500));
-  //   console.log(img);
-  // }
   useEffect(() => {
+    dispatch(fetchTagProducts());
     dispatch(fetchContentBlocks("homepage-hero-slider"));
   }, [dispatch]);
-
   return (
     <div>
       {/* Slider */}
       <div className="container box-border">
-        <Slider data={data[0]} />
+        {data && data[0] && <Slider data={data[0]} />}
       </div>
       {/* Best Deals */}
-      <section className="container mt-24 " id="best deals">
-        <h1 className="text-2xl font-bold text-primary">Best Deals</h1>
-        <div className="grid grid-cols-2 gap-6 lg:grid-cols-4">
-          {Array.from({ length: 4 }).map((_, index) => (
-            <BestDealItem key={index} />
-          ))}
-        </div>
-      </section>
+      {tagItems && tagItems["best-deal"] && (
+        <section className="container mt-24 " id="best deals">
+          <h1 className="text-2xl font-bold text-primary">Best Deals</h1>
+          <div className="mt-10">
+            {tagItems && (
+              <MultiItemSlider popularSearchData={tagItems["best-deal"]} />
+            )}
+          </div>
+        </section>
+      )}
 
       {/* Top Slected Deals */}
       <section className="bg-input_bg py-8  mt-24">
@@ -119,12 +83,14 @@ function Home() {
       </section>
 
       {/* Popular Search */}
-      <section className="container mt-24 " id="best deals">
-        <h1 className="text-2xl text-primary font-bold">Popular Search</h1>
-        <div className="mt-10">
-          <MultiItemSlider />
-        </div>
-      </section>
+      {tagItems && tagItems["popular-search"] && (
+        <section className="container mt-24 " id="best deals">
+          <h1 className="text-2xl text-primary font-bold">Popular Search</h1>
+          <div className="mt-10">
+            <MultiItemSlider popularSearchData={tagItems["popular-search"]} />
+          </div>
+        </section>
+      )}
 
       {/* Qualieties */}
       <section className="container mt-24 grid  gap-4 gap-y-12 grid-cols-3 md:grid-cols-5">

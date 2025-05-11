@@ -6,8 +6,7 @@ export const fetchProducts = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const res = await getProducts();
-      console.log(res);
-      return res;
+       return res;
     } catch (err) {
       console.log(err);
       return rejectWithValue(err.message || "Failed to fetch products");

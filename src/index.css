@@ -61,6 +61,8 @@
   body {
     @apply text-foreground font-outfit overflow-x-hidden;
   }
+
+
 }
 
 @layer utilities {
@@ -89,4 +91,12 @@ body {
 .react-simple-star-rating .style-module_emptyIcons__Bg-FZ {
   display: flex !important;
   border: 1px solid black;
+}
+.hide-scrollbar {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none;    /* Firefox */
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;            /* Chrome, Safari, Opera */
 }

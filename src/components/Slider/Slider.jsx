@@ -10,9 +10,7 @@ function Slider({data}) {
 
   return (
     <Carousel
-      // opts={{
-      //   loop: true,
-      // }}
+      
       plugins={[
         AutoPlay({
           delay: 2000,
@@ -22,7 +20,7 @@ function Slider({data}) {
     >
       <CarouselContent>
         {data?.images.map((item, index) => (
-          <CarouselItem key={index} className="h-[350px] md:h-[350px]">
+          <CarouselItem key={index} className="aspect-[35/20] md:aspect-auto">
             <img
               className="w-full h-full rounded-md object-cover"
               src={item}

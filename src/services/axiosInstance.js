@@ -1,5 +1,6 @@
 import axios from "axios";
 let url = import.meta.env.VITE_BASEURL;
+console.log(url)
 const axiosInstance = axios.create({
   baseURL: url,
   timeout: 5000,
