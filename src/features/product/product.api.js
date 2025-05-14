@@ -16,8 +16,8 @@ export const productApi = createApi({
     searchProducts: builder.query({
       query: ({ search, page = 1, limit = 10 }) => ({
         url: "products",
-        params: { search, page, limit },
-      }), 
+        params: { page, limit, search, sortBy, order },
+      }),
     }),
   }),
 });

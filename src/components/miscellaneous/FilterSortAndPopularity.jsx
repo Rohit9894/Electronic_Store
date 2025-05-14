@@ -1,15 +1,16 @@
 import { useState } from "react";
 
-function FilterSortAndPopularity() {
-  const [filter, setFilter] = useState("all");
-  function handleFilter(value) {
-    setFilter(value);
+function FilterSortAndPopularity({ handleFilterValue }) {
+  const [filter, setFilter] = useState("");
+  function handleFilter(sortBy, order, active) {
+    setFilter(active);
+    handleFilterValue(sortBy, order);
   }
   return (
-    <div className="flex text-sm gap-4">
+    <div className="flex text-sm justify-between w-1/2">
       <h2 className=" font-medium">Sort By</h2>
       <div
-        onClick={() => handleFilter("lth")}
+        onClick={() => handleFilter("price", "asc", "lth")}
         className={`${
           filter === "lth"
             ? "active-sort-and-popularity-item"
@@ -19,7 +20,7 @@ function FilterSortAndPopularity() {
         Price -- Low to High
       </div>
       <div
-        onClick={() => handleFilter("htl")}
+        onClick={() => handleFilter("price", "desc", "htl")}
         className={`${
           filter === "htl"
             ? "active-sort-and-popularity-item"
@@ -29,7 +30,7 @@ function FilterSortAndPopularity() {
         Price -- High to Low
       </div>
       <div
-        onClick={() => handleFilter("new")}
+        onClick={() => handleFilter("createdAt", "desc", "new")}
         className={`${
           filter === "new"
             ? "active-sort-and-popularity-item"
@@ -37,16 +38,6 @@ function FilterSortAndPopularity() {
         }`}
       >
         Newest First
-      </div>
-      <div
-        onClick={() => handleFilter("all")}
-        className={`${
-          filter === "all"
-            ? "active-sort-and-popularity-item"
-            : "sort-and-popularity-item"
-        }`}
-      >
-        All Products
       </div>
     </div>
   );

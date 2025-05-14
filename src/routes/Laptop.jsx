@@ -5,10 +5,28 @@ import LaptopSkeleton from "@/components/miscellaneous/skeleton/LaptopSkeleton";
 import SomeThingWentWrong from "@/components/miscellaneous/uiErrors/SomeThingWentWrong";
 import { Slider } from "@/components/ui/slider";
 import { useGetProductsQuery } from "@/features/product/product.api";
+import { useState } from "react";
 
 const Laptop = () => {
-  const { data: productsData, isLoading, error } = useGetProductsQuery();
-  console.log(productsData);
+  const [queryParams, setQueryParams] = useState({
+    page: 1,
+    limit: 10,
+    sortBy: "",
+    order: "",
+  });
+  const {
+    data: productsData,
+    isLoading,
+    error,
+  } = useGetProductsQuery(queryParams);
+  function handleFilter(sortBy, order) {
+    setQueryParams((prev) => ({
+      ...prev,
+      sortBy,
+      order,
+    }));
+  }
+
   return (
     <div className="container mt-16">
       <div className="grid grid-cols-12 md:gap-10">
@@ -25,7 +43,7 @@ const Laptop = () => {
           <div className="mb-8 flex justify-between items-baseline">
             <h2 className="font-medium">Laptops Products</h2>
             {/* sort and populirity */}
-            <FilterSortAndPopularity />
+            <FilterSortAndPopularity handleFilterValue={handleFilter} />
           </div>
           {error ? (
             <SomeThingWentWrong />
