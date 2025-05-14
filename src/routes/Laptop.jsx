@@ -4,18 +4,28 @@ import ProductItem from "@/components/miscellaneous/ProductItem";
 import LaptopSkeleton from "@/components/miscellaneous/skeleton/LaptopSkeleton";
 import SomeThingWentWrong from "@/components/miscellaneous/uiErrors/SomeThingWentWrong";
 import { Slider } from "@/components/ui/slider";
-import { fetchProducts } from "@/features/product/product.slice";
-import { store } from "@/store";
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useGetProductsQuery } from "@/features/product/product.api";
+import { useState } from "react";
 
 const Laptop = () => {
-  const dispatch = useDispatch();
-  const { items, loading, error } = useSelector((store) => store.products);
-  useEffect(() => {
-    dispatch(fetchProducts());
-  }, [dispatch]);
-  // console.log(store.getState());
+  const [queryParams, setQueryParams] = useState({
+    page: 1,
+    limit: 10,
+    sortBy: "",
+    order: "",
+  });
+  const {
+    data: productsData,
+    isLoading,
+    error,
+  } = useGetProductsQuery(queryParams);
+  function handleFilter(sortBy, order) {
+    setQueryParams((prev) => ({
+      ...prev,
+      sortBy,
+      order,
+    }));
+  }
 
   return (
     <div className="container mt-16">
@@ -33,20 +43,22 @@ const Laptop = () => {
           <div className="mb-8 flex justify-between items-baseline">
             <h2 className="font-medium">Laptops Products</h2>
             {/* sort and populirity */}
-            <FilterSortAndPopularity />
+            <FilterSortAndPopularity handleFilterValue={handleFilter} />
           </div>
           {error ? (
             <SomeThingWentWrong />
           ) : (
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 justify-between">
-              {loading
-                ? Array.from({ length: 8 }).map((item, i) => (
-                    <LaptopSkeleton key={i} />
-                  ))
-                : items.map((item, index) => (
-                    <ProductItem key={item?.id} productData={item} />
-                  ))}
-            </div>
+            productsData && (
+              <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 justify-between">
+                {isLoading
+                  ? Array.from({ length: 8 }).map((item, i) => (
+                      <LaptopSkeleton key={i} />
+                    ))
+                  : productsData?.data.map((item, index) => (
+                      <ProductItem key={item?.id} productData={item} />
+                    ))}
+              </div>
+            )
           )}
         </div>
       </div>

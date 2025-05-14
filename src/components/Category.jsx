@@ -1,60 +1,42 @@
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 function Category() {
   const category = [
-    {
-      id: 1,
-      title: "All Categories",
-      to: "/",
-    },
-    {
-      id: 2,
-      title: "Accessories",
-      to: "/",
-    },
-    {
-      id: 3,
-      title: "Smartphone",
-      to: "/",
-    },
-    {
-      id: 4,
-      title: "Laptop",
-      to: "/laptop",
-    },
-    {
-      id: 5,
-      title: "Earphone",
-      to: "/",
-    },
-    {
-      id: 6,
-      title: "Headphone",
-      to: "/",
-    },
-    {
-      id: 7,
-      title: "SIM",
-      to: "/",
-    },
-    {
-      id: 8,
-      title: "Bluetooth Speakers",
-      to: "/",
-    },
+    { id: 1, title: "All Categories", to: "/test" },
+    { id: 2, title: "Accessories", to: "/test" },
+    { id: 3, title: "Smartphone", to: "/test" },
+    { id: 4, title: "Laptop", to: "/laptop" },
+    { id: 5, title: "Earphone", to: "/test" },
+    { id: 6, title: "Headphone", to: "/test" },
+    { id: 7, title: "SIM", to: "/test" },
+    { id: 8, title: "Bluetooth Speakers", to: "/test" },
   ];
+
   return (
-    <div className=" container custom_center justify-between mt-5 overflow-auto">
-      {category.map((item) => (
-        <Link key={item.id} to={item?.to}>
-          <p
+    <div className="w-full mt-5 overflow-x-auto hide-scrollbar">
+      <div className="flex space-x-3 px-4 sm:px-6 md:justify-between">
+        {category.map((item) => (
+          <NavLink
             key={item.id}
-            className="text-muted bg-muted-foreground text-sm px-2 py-1 cursor-pointer rounded-lg whitespace-nowrap hover:bg-accent-foreground"
+            to={item.to}
+            onClick={(e) => {
+              if (item.to !== "/laptop") {
+                e.preventDefault(); // ⛔ Prevent navigation
+                alert("Navigation disabled for this link");
+              }
+            }}
+            className={({ isActive }) =>
+              `text-sm px-3 py-1 cursor-pointer rounded-lg whitespace-nowrap ${
+                isActive
+                  ? "text-muted bg-accent-foreground"
+                  : "text-muted bg-muted-foreground"
+              } hover:bg-accent-foreground`
+            }
           >
             {item.title}
-          </p>
-        </Link>
-      ))}
+          </NavLink>
+        ))}
+      </div>
     </div>
   );
 }
