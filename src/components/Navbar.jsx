@@ -5,8 +5,33 @@ import { Search, ShoppingBag, User } from "lucide-react";
 import { Button } from "./ui/button";
 import Category from "./Category";
 import { Link } from "react-router-dom";
+import { useGetProductsQuery } from "@/features/product/product.api";
+import { useState } from "react";
+import { useDebounce } from "@/hooks/useDebounce";
+// import { useEffect, useState } from "react";
+// import { fetchProducts } from "@/features/product/product.slice";
+// import { useSelector, useDispatch } from "react-redux";
 
 function Navbar() {
+  const [search, setSearch] = useState("");
+  const [showDropdown, setShowDropdown] = useState(false);
+  const debouncedSearch = useDebounce(search, 500);
+
+  const {
+    data: searchData,
+    isLoading,
+    error,
+  } = useGetProductsQuery(
+    {
+      page: 1,
+      limit: 10,
+      search: debouncedSearch,
+    },
+    {
+      skip: debouncedSearch.trim() === "",
+    }
+  );
+
   return (
     <nav>
       {/*Top Navbar*/}
@@ -20,17 +45,60 @@ function Navbar() {
             <Logo />
           </Link>
           {/* Search bar */}
-          <div className="hidden md:block w-1/2 relative">
-            <Input
-              type="search"
-              placeholder="Search here..."
-              className="full pl-4 bg-secondary"
-            />
-            <Search
-              size={"20px"}
-              strokeWidth={3}
-              className="absolute right-4 top-2 text-primary"
-            />
+          <div
+            id="search-container"
+            className="relative md:block w-1/2   mx-auto"
+          >
+            <div className="hidden md:block w-full relative">
+              <Input
+                type="text"
+                placeholder="Search here..."
+                onChange={(e) => {
+                  setSearch(e.target.value);
+                  setShowDropdown(true);
+                }}
+                onFocus={() => setShowDropdown(true)}
+                className="full pl-4 bg-secondary"
+              />
+              <Search
+                size={"20px"}
+                strokeWidth={3}
+                className="absolute right-4 top-2 text-primary"
+              />
+            </div>
+            {/* search results drop down */}
+
+            {showDropdown && debouncedSearch && (
+              <div className="absolute bg-white border w-full z-10 max-h-60 overflow-y-auto shadow-md ">
+                {isLoading ? (
+                  <p className="p-2">Loading...</p>
+                ) : searchData?.data?.length ? (
+                  searchData.data.map((item) => (
+                    <div
+                      key={item.id}
+                      className="p-2 hover:bg-gray-100 cursor-pointer custom_center gap-4"
+                      onClick={() => {
+                        setSearch(item.name);
+                        setShowDropdown(false);
+                      }}
+                    >
+                      {item?.images[0] ? (
+                        <img
+                          src={item.images[0]}
+                          alt={item?.name}
+                          className="h-8"
+                        />
+                      ) : (
+                        <Search />
+                      )}
+                      <p>{item.name}</p>
+                    </div>
+                  ))
+                ) : (
+                  <p className="p-2">No results found</p>
+                )}
+              </div>
+            )}
           </div>
           {/* cart */}
           <div className="custom_center gap-4">
@@ -51,6 +119,7 @@ function Navbar() {
             type="search"
             placeholder="Search here..."
             className="full pl-4 bg-input_bg"
+            onChange={(e) => setSearch(e.target.value)}
           />
           <Search
             size={"20px"}
@@ -62,7 +131,6 @@ function Navbar() {
 
       {/* Category */}
       <Category />
-      
     </nav>
   );
 }

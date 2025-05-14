@@ -1,10 +1,10 @@
-import Navbar from "./components/Navbar";
+// import Navbar from "./components/Navbar";
 import AllRoutes from "./routes/AllRoutes";
 import Footer from "./components/Footer";
 import { useLocation } from "react-router-dom";
+import Navbar from "./components/Navbar";
 
 function App() {
-
   const location = useLocation();
   const hideNavbar =
     location.pathname === "/login" || location.pathname === "/signup";

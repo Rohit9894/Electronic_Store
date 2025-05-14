@@ -4,11 +4,11 @@ import React from "react";
 function PopularSearchItem({ product }) {
   const { name, price, images } = product;
   return (
-    <div className="w-full h-80 p-5  flex flex-col justify-between  bg-white border-2   rounded-lg ">
+    <div className="w-full h-80 p-2  flex basis-auto flex-col justify-between  bg-white border-2   rounded-lg ">
       <img
         src={images[0]}
         alt="image"
-        className="w-full h-[60%] object-contain rounded-t-lg "
+        className="w-full aspect-[1/1] object-contain rounded-t-lg "
       />
       <div className="py-4 px-4 text-center">
         <div className="">

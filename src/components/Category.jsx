@@ -14,7 +14,7 @@ function Category() {
 
   return (
     <div className="w-full mt-5 overflow-x-auto hide-scrollbar">
-      <div className="flex space-x-3 px-4 sm:px-6 md:px-8">
+      <div className="flex space-x-3 px-4 sm:px-6 md:justify-between">
         {category.map((item) => (
           <Link key={item.id} to={item.to}>
             <p className="text-muted bg-muted-foreground text-sm px-3 py-1 cursor-pointer rounded-lg whitespace-nowrap hover:bg-accent-foreground">
