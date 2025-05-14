@@ -31,6 +31,10 @@ function Navbar() {
       skip: debouncedSearch.trim() === "",
     }
   );
+  function handleBlur() {
+    setSearch("");
+    setShowDropdown(false);
+  }
 
   return (
     <nav>
@@ -53,11 +57,13 @@ function Navbar() {
               <Input
                 type="text"
                 placeholder="Search here..."
+                value={search}
                 onChange={(e) => {
                   setSearch(e.target.value);
                   setShowDropdown(true);
                 }}
                 onFocus={() => setShowDropdown(true)}
+                onBlur={handleBlur}
                 className="full pl-4 bg-secondary"
               />
               <Search
