@@ -3,12 +3,23 @@ import AllRoutes from "./routes/AllRoutes";
 import Footer from "./components/Footer";
 import { useLocation } from "react-router-dom";
 import Navbar from "./components/Navbar";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { validateToken } from "./features/auth/auth.slice";
+import { store } from "./store";
 
 function App() {
+  const dispatch = useDispatch();
   const location = useLocation();
   const hideNavbar =
     location.pathname === "/login" || location.pathname === "/signup";
 
+  useEffect(() => {
+    console.log("redering");
+    dispatch(validateToken());
+  }, [dispatch]);
+  const data = useSelector((store) => store.auth);
+  console.log(data);
   return (
     <div>
       {!hideNavbar && <Navbar />}

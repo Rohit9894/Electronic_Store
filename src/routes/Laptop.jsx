@@ -26,7 +26,7 @@ const Laptop = () => {
       order,
     }));
   }
-
+  console.log(isLoading);
   return (
     <div className="container mt-16">
       <div className="grid grid-cols-12 md:gap-10">
@@ -48,17 +48,16 @@ const Laptop = () => {
           {error ? (
             <SomeThingWentWrong />
           ) : (
-            productsData && (
-              <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 justify-between">
-                {isLoading
-                  ? Array.from({ length: 8 }).map((item, i) => (
-                      <LaptopSkeleton key={i} />
-                    ))
-                  : productsData?.data.map((item, index) => (
-                      <ProductItem key={item?.id} productData={item} />
-                    ))}
-              </div>
-            )
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 justify-between">
+              {isLoading
+                ? Array.from({ length: 8 }).map((item, i) => (
+                    <LaptopSkeleton key={i} />
+                  ))
+                : productsData &&
+                  productsData?.data.map((item, index) => (
+                    <ProductItem key={item?.id} productData={item} />
+                  ))}
+            </div>
           )}
         </div>
       </div>

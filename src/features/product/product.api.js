@@ -1,9 +1,9 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-let url = import.meta.env.VITE_PRODUCT_BASEURL;
+let url = import.meta.env.VITE_BASEURL;
 
 export const productApi = createApi({
   reducerPath: "productApi",
-  baseQuery: fetchBaseQuery({ baseUrl: url }),
+  baseQuery: fetchBaseQuery({ baseUrl: url, credentials:"include" }),
   tagTypes: ["Products"],
   endpoints: (builder) => ({
     getProducts: builder.query({

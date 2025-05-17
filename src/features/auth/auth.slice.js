@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { login, signup } from "./auth.api";
 import { toast } from "@/hooks/use-toast";
+import axiosInstance from "@/services/axiosInstance";
 
 export const signupUser = createAsyncThunk(
   "auth/signupUser",
@@ -59,11 +60,23 @@ export const loginUser = createAsyncThunk(
   }
 );
 
+export const validateToken = createAsyncThunk(
+  "auth/validateToken",
+  async (_, { rejectWithValue }) => {
+    try {
+      const res = await axiosInstance.get("/auth/validate-token");
+      return res.data.user;
+    } catch (err) {
+      return rejectWithValue(err.response?.data?.message || "Session expired");
+    }
+  }
+);
+
 const initialState = {
   user: null,
-  loading: false,
+  loading: true,
   error: null,
-  isAuthenticated: null,
+  isAuthenticated: false,
 };
 
 const authSlice = createSlice({
@@ -95,6 +108,19 @@ const authSlice = createSlice({
       .addCase(signupUser.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
+      })
+      .addCase(validateToken.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(validateToken.fulfilled, (state, action) => {
+        state.loading = false;
+        state.isAuthenticated = true;
+        state.user = action.payload;
+      })
+      .addCase(validateToken.rejected, (state) => {
+        state.loading = false;
+        state.isAuthenticated = false;
+        state.user = null;
       });
   },
 });

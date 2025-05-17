@@ -40,6 +40,8 @@ function Home() {
     dispatch(fetchTagProducts());
     dispatch(fetchContentBlocks("homepage-hero-slider"));
   }, [dispatch]);
+
+
   return (
     <div>
       {/* Slider */}
