@@ -83,7 +83,14 @@ const initialState = {
 const authSlice = createSlice({
   name: "auth",
   initialState,
-  reducers: {},
+  reducers: {
+    incrementCartCount: (state) => {
+      state.cartCount += 1;
+    },
+    decrementCartCount: (state) => {
+      if (state.cartCount > 0) state.cartCount -= 1;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(loginUser.pending, (state) => {
@@ -127,5 +134,5 @@ const authSlice = createSlice({
       });
   },
 });
-
+export const { incrementCartCount, decrementCartCount } = authSlice.actions;
 export default authSlice.reducer;

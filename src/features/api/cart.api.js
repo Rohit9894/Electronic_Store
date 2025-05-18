@@ -25,7 +25,19 @@ export const cartApi = createApi({
       }),
       invalidatesTags: ["cart"],
     }),
+    updateQuantity: builder.mutation({
+      query: ({ productId, action }) => ({
+        url: "cart/update-quantity",
+        method: "PATCH",
+        body: { productId, action },
+      }),
+      invalidatesTags: ["cart"],
+    }),
   }),
 });
 
-export const { useGetCartsQuery, useAddToCartMutation } = cartApi;
+export const {
+  useGetCartsQuery,
+  useAddToCartMutation,
+  useUpdateQuantityMutation,
+} = cartApi;

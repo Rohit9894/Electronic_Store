@@ -3,15 +3,18 @@ import ReactStars from "react-rating-stars-component";
 import { convertIntoIndian, finalProductPrice } from "@/utils/formattedPrice";
 import { useAddToCartMutation } from "@/features/api/cart.api";
 import { useToast } from "@/hooks/use-toast";
+import { useDispatch } from "react-redux";
+import { incrementCartCount } from "@/features/auth/auth.slice";
 
 function ProductItem({ productData }) {
   const { name, price, images, stock, discountPercent, _id } = productData;
   const [addToCart, { isLoading, error }] = useAddToCartMutation();
   const { toast } = useToast();
-
+  const dispatch=useDispatch();
   const handleAdd = (id) => {
     addToCart({ productId: id, quantity: 1 })
       .then((res) => {
+        dispatch(incrementCartCount())
         toast({
           title: "Added to cart",
           description: `${name} has been added to your cart`,

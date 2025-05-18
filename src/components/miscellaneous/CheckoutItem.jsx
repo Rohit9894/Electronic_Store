@@ -3,10 +3,32 @@ import { Minus, Plus, Trash2 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
+import { useUpdateQuantityMutation } from "@/features/api/cart.api";
+import { useDispatch } from "react-redux";
+import {
+  decrementCartCount,
+  incrementCartCount,
+} from "@/features/auth/auth.slice";
 
 function CheckoutItem({ cartItem }) {
-  const { name, images, price } = cartItem?.productId;
+  const { name, images, price, _id } = cartItem?.productId;
+  const dispatch = useDispatch();
 
+  const [updateQuantity] = useUpdateQuantityMutation();
+
+  const handleIncrement = () => {
+    updateQuantity({ productId: _id, action: "inc" })
+      .then((res) => {
+        dispatch(incrementCartCount());
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const handleDecrement = () => {
+    updateQuantity({ productId: _id, action: "dec" })
+      .then((res) => dispatch(decrementCartCount()))
+      .catch((err) => console.log(err));
+  };
   return (
     <div className="flex p-2 shadow-custom rounded-md w-full ">
       <div className="custom_center gap-4 flex-shrink-0 size-20">
@@ -26,9 +48,7 @@ function CheckoutItem({ cartItem }) {
               variant="outline"
               size="icon"
               className="h-8 w-8 rounded-r-none"
-              // onClick={() =>
-              //   updateQuantity(item.id, Math.max(1, item.quantity - 1))
-              // }
+              onClick={handleDecrement}
             >
               -
             </Button>
@@ -45,7 +65,7 @@ function CheckoutItem({ cartItem }) {
               variant="outline"
               size="icon"
               className="h-8 w-8 rounded-l-none"
-              // onClick={() => updateQuantity(item.id, item.quantity + 1)}
+              onClick={handleIncrement}
             >
               +
             </Button>
