@@ -10,7 +10,7 @@ function Cart() {
     <div className="container">
       <h1 className="text-3xl font-bold my-8">Shopping Cart</h1>
       <div className=" grid grid-cols-3 gap-8">
-        <div className="col-span-4 md:col-span-2">
+        <div className="flex flex-col gap-8 col-span-4 md:col-span-2">
           {cartData &&
             cartData?.items &&
             cartData?.items.map((product) => (

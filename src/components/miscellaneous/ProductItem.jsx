@@ -1,13 +1,31 @@
-
-
-
 import { Button } from "../ui/button";
 import ReactStars from "react-rating-stars-component";
 import { convertIntoIndian, finalProductPrice } from "@/utils/formattedPrice";
+import { useAddToCartMutation } from "@/features/api/cart.api";
+import { useToast } from "@/hooks/use-toast";
 
 function ProductItem({ productData }) {
-  const { name, price, images, stock , discountPercent } =
-    productData;
+  const { name, price, images, stock, discountPercent, _id } = productData;
+  const [addToCart, { isLoading, error }] = useAddToCartMutation();
+  const { toast } = useToast();
+
+  const handleAdd = (id) => {
+    addToCart({ productId: id, quantity: 1 })
+      .then((res) => {
+        toast({
+          title: "Added to cart",
+          description: `${name} has been added to your cart`,
+        });
+      })
+      .catch((err) => {
+        toast({
+          title: "Failed to add to cart",
+          description: err?.data?.error || "Something went wrong.",
+          variant: "destructive",
+        });
+      });
+  };
+
   return (
     <div className="h-max-content  flex flex-col justify-between  bg-white rounded-lg shadow-md cursor-pointer">
       <img
@@ -36,11 +54,15 @@ function ProductItem({ productData }) {
         <div>
           <Button
             variant={"outline"}
-            disabled={stock <= 0}
-            // className="bg-white border-2   w-full text-background mt-4"
+            disabled={stock <= 0 || isLoading}
             className="w-full mt-4 "
+            onClick={() => handleAdd(_id)}
           >
-            {stock > 0 ? "Add to cart" : "Out of stock"}
+            {isLoading
+              ? "Adding..."
+              : stock > 0
+              ? "Add to cart"
+              : "Out of stock"}
           </Button>
         </div>
       </div>
