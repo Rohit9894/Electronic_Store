@@ -65,7 +65,7 @@ export const validateToken = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const res = await axiosInstance.get("/auth/validate-token");
-      return res.data.user;
+      return res.data;
     } catch (err) {
       return rejectWithValue(err.response?.data?.message || "Session expired");
     }
@@ -77,6 +77,7 @@ const initialState = {
   loading: true,
   error: null,
   isAuthenticated: false,
+  cartCount: 0,
 };
 
 const authSlice = createSlice({
@@ -113,9 +114,11 @@ const authSlice = createSlice({
         state.loading = true;
       })
       .addCase(validateToken.fulfilled, (state, action) => {
+        console.log(action.payload);
         state.loading = false;
         state.isAuthenticated = true;
-        state.user = action.payload;
+        state.user = action.payload?.user?.user;
+        state.cartCount = action.payload?.cartCount;
       })
       .addCase(validateToken.rejected, (state) => {
         state.loading = false;

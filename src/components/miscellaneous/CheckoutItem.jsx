@@ -6,8 +6,7 @@ import { Button } from "../ui/button";
 
 function CheckoutItem({ cartItem }) {
   const { name, images, price } = cartItem?.productId;
-  
-  console.log(cartItem);
+
   return (
     <div className="flex p-2 shadow-custom rounded-md w-full ">
       <div className="custom_center gap-4 flex-shrink-0 size-20">

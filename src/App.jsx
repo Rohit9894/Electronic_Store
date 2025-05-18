@@ -19,7 +19,7 @@ function App() {
     dispatch(validateToken());
   }, [dispatch]);
   const data = useSelector((store) => store.auth);
-
+ console.log(data)
   return (
     <div>
       {!hideNavbar && <Navbar />}

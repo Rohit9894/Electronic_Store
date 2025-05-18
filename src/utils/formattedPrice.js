@@ -1,4 +1,5 @@
 const convertIntoIndian = (price) => {
+
   const formattedPrice = price.toLocaleString("en-IN");
   return `₹ ${formattedPrice}`;
 };

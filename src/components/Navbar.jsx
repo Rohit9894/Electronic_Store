@@ -1,13 +1,14 @@
 import TopNavbar from "./TopNavbar";
 import Logo from "./miscellaneous/Logo";
 import { Input } from "./ui/input";
-import { Search, ShoppingBag, User } from "lucide-react";
+import { Search, ShoppingBag, ShoppingCart, User } from "lucide-react";
 import { Button } from "./ui/button";
 import Category from "./Category";
 import { Link } from "react-router-dom";
 import { useGetProductsQuery } from "@/features/product/product.api";
 import { useEffect, useState } from "react";
 import { useDebounce } from "@/hooks/useDebounce";
+import { useSelector } from "react-redux";
 // import { useEffect, useState } from "react";
 // import { fetchProducts } from "@/features/product/product.slice";
 // import { useSelector, useDispatch } from "react-redux";
@@ -36,7 +37,7 @@ function Navbar() {
     setSearch("");
     setShowDropdown(false);
   }
-
+  const { cartCount } = useSelector((store) => store.auth);
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 10);
@@ -47,7 +48,7 @@ function Navbar() {
   }, []);
   const navClasses = `sticky top-0 z-50 w-full transition-all ${
     isScrolled ? "bg-white shadow-sm" : "bg-white md:bg-transparent"
-  }`
+  }`;
 
   return (
     <>
@@ -122,9 +123,16 @@ function Navbar() {
             </div>
             {/* cart */}
             <div className="custom_center gap-4">
-              <Link to="/cart">
-                {" "}
-                <ShoppingBag className="text-primary hover:text-primary/90 cursor-pointer" />
+              <Link to="/cart" className="relative">
+                <Button variant="ghost" size="icon">
+                  <ShoppingCart className="text-primary" />
+                  <span className="sr-only">Cart</span>
+                  {cartCount > 0 && (
+                    <span className="absolute top-2 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-black text-[10px] font-medium text-white">
+                      {cartCount}
+                    </span>
+                  )}
+                </Button>
               </Link>
               <Link to="/login">
                 <Button className="bg-primary">
