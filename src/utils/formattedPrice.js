@@ -1,6 +1,6 @@
 const convertIntoIndian = (price) => {
   const formattedPrice = price.toLocaleString("en-IN");
-  return formattedPrice;
+  return `₹ ${formattedPrice}`;
 };
 const finalProductPrice = (price, dis) => {
   let discount = price * (dis / 100);

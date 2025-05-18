@@ -1,30 +1,62 @@
-import {  Minus, Plus, Trash2 } from "lucide-react";
-
+import { convertIntoIndian } from "@/utils/formattedPrice";
+import { Minus, Plus, Trash2 } from "lucide-react";
+import { Link } from "react-router-dom";
+import { Input } from "../ui/input";
+import { Button } from "../ui/button";
 
 function CheckoutItem() {
   return (
-    <div className="flex p-2.5 shadow-custom rounded-md w-full ">
-      <div className="custom_center gap-4 flex-shrink-0">
-        <input className="size-3.5 cursor-pointer" type="checkbox" />
+    <div className="flex p-2 shadow-custom rounded-md w-full ">
+      <div className="custom_center gap-4 flex-shrink-0 size-20">
         <img
-          src="https://images.unsplash.com/photo-1622782914767-404fb9ab3f57?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fG1vYmlsZXxlbnwwfHwwfHx8MA%3D%3D"
+          src="https://rukminim2.flixcart.com/image/312/312/xif0q/computer/h/k/w/-original-imaha9gqg9fkhghu.jpeg?q=70"
           alt="image"
-          className="size-20 object-cover rounded-md "
+          className="size-w-full h-full object-contain rounded-md"
         />
       </div>
       <div className=" w-full ml-10 box-border">
-        <h1 className="text-lg  font-semibold">HP Pavillion</h1>
-        <h2 className="font-medium text-background text-lg">₹ 1999 </h2>
-        <div className="custom_center gap-6 justify-end ">
-          <div className="flex text-teal items-center py-1 px-2 justify-between w-32 border-2 5 border-teal border-solid rounded-md">
-            <Minus cursor={"pointer"} size={"20px"} />
-            <span className="text-black"> 1</span>
-            <Plus cursor={"pointer"} size={"20px"} />
+        <Link className="font-medium hover:underline">{"Hp Paviliion"}</Link>
+        <div className="text-sm text-zinc-500">{"laptop"}</div>
+        <div className="font-medium">{convertIntoIndian(12999)}</div>
+        <div className="flex  justify-end gap-2">
+          <div className="flex items-center">
+            <Button
+              variant="outline"
+              size="icon"
+              className="h-8 w-8 rounded-r-none"
+              // onClick={() =>
+              //   updateQuantity(item.id, Math.max(1, item.quantity - 1))
+              // }
+            >
+              -
+            </Button>
+            <Input
+              type="number"
+              min="1"
+              value={2}
+              // onChange={(e) =>
+              //   updateQuantity(item.id, Number.parseInt(e.target.value) || 1)
+              // }
+              className="h-8 w-12 rounded-none text-center [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+            />
+            <Button
+              variant="outline"
+              size="icon"
+              className="h-8 w-8 rounded-l-none"
+              // onClick={() => updateQuantity(item.id, item.quantity + 1)}
+            >
+              +
+            </Button>
           </div>
-
-          <div className="text-teal p-2 rounded-md shadow-custom">
-            <Trash2 size={"20px"} />
-          </div>
+          <Button
+            variant="ghost"
+            size="sm"
+            className="h-8 px-2 text-zinc-500"
+            // onClick={() => removeItem(item.id)}
+          >
+            <Trash2 className="h-4 w-4 mr-1" />
+            Remove
+          </Button>
         </div>
       </div>
     </div>
