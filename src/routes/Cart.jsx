@@ -1,23 +1,21 @@
 import CheckoutItem from "@/components/miscellaneous/CheckoutItem";
 import { Button } from "@/components/ui/button";
+import { useGetCartsQuery } from "@/features/api/cart.api";
 import { Separator } from "@radix-ui/react-select";
 
-function Checkout() {
+function Cart() {
+  const { data: cartData, isLoading, error } = useGetCartsQuery();
+
   return (
     <div className="container">
       <h1 className="text-3xl font-bold my-8">Shopping Cart</h1>
       <div className=" grid grid-cols-3 gap-8">
         <div className="col-span-4 md:col-span-2">
-          <div className=" flex flex-col gap-8">
-            <CheckoutItem />
-            <CheckoutItem />
-            <CheckoutItem />
-            <CheckoutItem />
-            <CheckoutItem />
-            <CheckoutItem />
-            <CheckoutItem />
-            <CheckoutItem />
-          </div>
+          {cartData &&
+            cartData?.items &&
+            cartData?.items.map((product) => (
+              <CheckoutItem cartItem={product} />
+            ))}
         </div>
         <div className="  shadow-custom p-4 rounded-md h-max sticky top-24">
           <h1 className="text-lg  font-semibold">Shopping Summary</h1>
@@ -54,4 +52,4 @@ function Checkout() {
   );
 }
 
-export default Checkout;
+export default Cart;

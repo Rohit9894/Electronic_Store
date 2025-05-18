@@ -4,20 +4,23 @@ import { Link } from "react-router-dom";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 
-function CheckoutItem() {
+function CheckoutItem({ cartItem }) {
+  const { name, images, price } = cartItem?.productId;
+  
+  console.log(cartItem);
   return (
     <div className="flex p-2 shadow-custom rounded-md w-full ">
       <div className="custom_center gap-4 flex-shrink-0 size-20">
         <img
-          src="https://rukminim2.flixcart.com/image/312/312/xif0q/computer/h/k/w/-original-imaha9gqg9fkhghu.jpeg?q=70"
+          src={images[0]}
           alt="image"
           className="size-w-full h-full object-contain rounded-md"
         />
       </div>
       <div className=" w-full ml-10 box-border">
-        <Link className="font-medium hover:underline">{"Hp Paviliion"}</Link>
+        <Link className="font-medium hover:underline">{name}</Link>
         <div className="text-sm text-zinc-500">{"laptop"}</div>
-        <div className="font-medium">{convertIntoIndian(12999)}</div>
+        <div className="font-medium">{convertIntoIndian(price)}</div>
         <div className="flex  justify-end gap-2">
           <div className="flex items-center">
             <Button
@@ -33,7 +36,7 @@ function CheckoutItem() {
             <Input
               type="number"
               min="1"
-              value={2}
+              value={cartItem?.quantity}
               // onChange={(e) =>
               //   updateQuantity(item.id, Number.parseInt(e.target.value) || 1)
               // }

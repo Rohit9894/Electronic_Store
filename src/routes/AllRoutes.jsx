@@ -3,7 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import Home from "./Home";
 import Laptop from "./Laptop";
 import SingleItem from "./SingleItem";
-import Checkout from "./Checkout";
+import Cart from "./Cart";
 import PlaceOrder from "./PlaceOrder";
 import Auth from "./Auth";
 import PrivateRoute from "@/components/auth/PrivateRoute";
@@ -22,7 +22,14 @@ function AllRoutes() {
       <Route path="/login" element={<Auth />} />
       <Route path="/laptop" element={<Laptop />} />
       <Route path="/laptop/:id" element={<SingleItem />} />
-      <Route path="/checkout" element={<Checkout />} />
+      <Route
+        path="/cart"
+        element={
+          <PrivateRoute>
+            <Cart />
+          </PrivateRoute>
+        }
+      />
       <Route path="/order-details" element={<PlaceOrder />} />
     </Routes>
   );

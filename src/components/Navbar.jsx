@@ -122,7 +122,7 @@ function Navbar() {
             </div>
             {/* cart */}
             <div className="custom_center gap-4">
-              <Link to="/checkout">
+              <Link to="/cart">
                 {" "}
                 <ShoppingBag className="text-primary hover:text-primary/90 cursor-pointer" />
               </Link>
