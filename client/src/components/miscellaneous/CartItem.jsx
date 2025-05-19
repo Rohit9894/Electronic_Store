@@ -9,16 +9,20 @@ import {
   decrementCartCount,
   incrementCartCount,
 } from "@/features/auth/auth.slice";
+import { useState } from "react";
 
-function CheckoutItem({ cartItem }) {
+function CartItem({ cartItem }) {
   const { name, images, price, _id } = cartItem?.productId;
+  const [pressedButton, setPressedButton] = useState(null);
+
   const dispatch = useDispatch();
 
-  const [updateQuantity] = useUpdateQuantityMutation();
+  const [updateQuantity, { isLoading }] = useUpdateQuantityMutation();
 
   const handleIncrement = () => {
     updateQuantity({ productId: _id, action: "inc" })
       .then((res) => {
+        setPressedButton("inc");
         dispatch(incrementCartCount());
       })
       .catch((err) => console.log(err));
@@ -26,9 +30,13 @@ function CheckoutItem({ cartItem }) {
 
   const handleDecrement = () => {
     updateQuantity({ productId: _id, action: "dec" })
-      .then((res) => dispatch(decrementCartCount()))
+      .then((res) => {
+        setPressedButton("dec");
+        dispatch(decrementCartCount());
+      })
       .catch((err) => console.log(err));
   };
+
   return (
     <div className="flex p-2 shadow-custom rounded-md w-full ">
       <div className="custom_center gap-4 flex-shrink-0 size-20">
@@ -49,6 +57,10 @@ function CheckoutItem({ cartItem }) {
               size="icon"
               className="h-8 w-8 rounded-r-none"
               onClick={handleDecrement}
+              disabled={
+                (isLoading && pressedButton === "dec") ||
+                cartItem?.quantity === 0
+              }
             >
               -
             </Button>
@@ -66,6 +78,10 @@ function CheckoutItem({ cartItem }) {
               size="icon"
               className="h-8 w-8 rounded-l-none"
               onClick={handleIncrement}
+              disabled={
+                (isLoading && pressedButton === "inc") ||
+                cartItem?.quantity === 10
+              }
             >
               +
             </Button>
@@ -85,4 +101,4 @@ function CheckoutItem({ cartItem }) {
   );
 }
 
-export default CheckoutItem;
+export default CartItem;

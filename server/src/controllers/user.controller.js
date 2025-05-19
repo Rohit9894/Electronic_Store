@@ -51,11 +51,13 @@ async function loginUser(req, res) {
     const count = cart
       ? cart.items.reduce((sum, item) => sum + item.quantity, 0)
       : 0;
-  
+
     res.cookie("token", token, {
       httpOnly: true,
-      sameSite: "None", // ⬅️ Very important for cross-domain (localhost -- Lax)
-      secure: true, // ⬅️ Must be true in production (HTTPS only) (localhost -- false)
+      // sameSite: "None", // ⬅️ Very important for cross-domain (localhost -- Lax)
+      // secure: true, // ⬅️ Must be true in production (HTTPS only) (localhost -- false)
+      sameSite: "Lax",
+      secure: false,
       maxAge: 3600000,
     });
 

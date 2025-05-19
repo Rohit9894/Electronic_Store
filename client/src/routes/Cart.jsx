@@ -1,4 +1,4 @@
-import CheckoutItem from "@/components/miscellaneous/CheckoutItem";
+import CartItem from "@/components/miscellaneous/CartItem";
 import { Button } from "@/components/ui/button";
 import { useGetCartsQuery } from "@/features/api/cart.api";
 import { convertIntoIndian } from "@/utils/formattedPrice";
@@ -23,9 +23,7 @@ function Cart() {
         <div className="flex flex-col gap-8 col-span-4 md:col-span-2">
           {cartData &&
             cartData?.items &&
-            cartData?.items.map((product) => (
-              <CheckoutItem cartItem={product} />
-            ))}
+            cartData?.items.map((product) => <CartItem cartItem={product} />)}
         </div>
         {cartData && (
           <div className="  shadow-custom p-4 rounded-md h-max sticky top-24">
