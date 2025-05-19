@@ -54,8 +54,8 @@ async function loginUser(req, res) {
 
     res.cookie("token", token, {
       httpOnly: true,
-      secure: false,
-      sameSite: "Lax",
+      sameSite: "None", // ⬅️ Very important for cross-domain (localhost -- Lax)
+      secure: true, // ⬅️ Must be true in production (HTTPS only) (localhost -- false)
       maxAge: 3600000,
     });
 
