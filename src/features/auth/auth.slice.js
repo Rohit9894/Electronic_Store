@@ -45,7 +45,8 @@ export const loginUser = createAsyncThunk(
           duration: 3000,
         });
       }
-      return res.data;
+
+      return res;
     } catch (err) {
       console.log(err);
       if (err?.msg == "Invalid credetials") {
@@ -98,7 +99,10 @@ const authSlice = createSlice({
         state.error = null;
       })
       .addCase(loginUser.fulfilled, (state, action) => {
-        (state.loading = false), (state.isAuthenticated = true);
+        state.loading = false;
+        state.isAuthenticated = true;
+        state.user = action.payload?.user?.data;
+        state.cartCount = action.payload?.cartCount;
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.loading = false;
@@ -121,7 +125,6 @@ const authSlice = createSlice({
         state.loading = true;
       })
       .addCase(validateToken.fulfilled, (state, action) => {
-        console.log(action.payload);
         state.loading = false;
         state.isAuthenticated = true;
         state.user = action.payload?.user?.user;
