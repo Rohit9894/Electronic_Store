@@ -15,7 +15,6 @@ function App() {
     location.pathname === "/login" || location.pathname === "/signup";
 
   useEffect(() => {
-    console.log("redering");
     dispatch(validateToken());
   }, [dispatch]);
   const data = useSelector((store) => store.auth);
