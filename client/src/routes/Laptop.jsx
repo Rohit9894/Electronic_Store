@@ -4,7 +4,7 @@ import ProductItem from "@/components/miscellaneous/ProductItem";
 import LaptopSkeleton from "@/components/miscellaneous/skeleton/LaptopSkeleton";
 import SomeThingWentWrong from "@/components/miscellaneous/uiErrors/SomeThingWentWrong";
 import { Slider } from "@/components/ui/slider";
-import { useGetProductsQuery } from "@/features/product/product.api";
+import { useGetProductsQuery } from "@/features/api/product.api";
 import { useState } from "react";
 
 const Laptop = () => {
