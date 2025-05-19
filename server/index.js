@@ -31,13 +31,48 @@ app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
  * All Routes
  */
 app.get("/", (req, res) => {
-  const token = req.cookies.token;
-  console.log(req.cookies);
-  if (token) {
-    res.json({ msg: "Cookie received!", token });
-  } else {
-    res.status(401).json({ msg: "No cookie found!" });
-  }
+  res.send(`
+    <html>
+      <head>
+        <style>
+          body {
+            display: flex;
+            flex-direction:column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+            margin: 0;
+          }
+          h1 {
+            font-family: 'Arial', sans-serif;
+            font-size: 50px;
+            color: hsl(221.2 83.2% 53.3%);
+            opacity: 0;
+            animation: fadeIn 2s ease-out forwards;
+          }
+          a{
+           font-family: cursive;
+          }
+          a:hover{
+          color: red;
+          }
+          @keyframes fadeIn {
+            0% {
+              opacity: 0;
+            }
+            100% {
+              opacity: 1;
+            }
+          }
+        </style>
+      </head>
+      <body>
+        <h1>Hii Brajesh Gupta 👋</h1>
+        <a tagret="_blank" href="http://localhost:4000/docs">Let's explore the documentation</a>
+      </body>
+    </html>
+  `);
 });
 // Validate Token
 app.get("/api/auth/validate-token", authMiddleware, async (req, res) => {
