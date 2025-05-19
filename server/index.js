@@ -31,7 +31,6 @@ app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
  * All Routes
  */
 app.get("/", (req, res) => {
-  console.log("hello")
   const token = req.cookies.token;
   console.log(req.cookies);
   if (token) {
