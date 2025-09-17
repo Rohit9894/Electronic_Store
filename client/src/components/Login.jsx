@@ -15,12 +15,10 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "@/features/auth/auth.slice";
 
-
 function Login() {
   const {
     register,
     handleSubmit,
-
     formState: { errors },
   } = useForm();
 
@@ -69,7 +67,7 @@ function Login() {
                 required: "Password is required!",
                 minLength: {
                   value: 8,
-                  message: "Password must be more than 4 characters",
+                  message: "Password must  contain at least 8 letters",
                 },
                 maxLength: {
                   value: 20,

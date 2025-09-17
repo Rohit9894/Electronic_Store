@@ -1,79 +1,181 @@
-import Rating from "@/components/miscellaneous/Rating";
 import { Button } from "@/components/ui/button";
-import { Check, Minus, Plus } from "lucide-react";
-import React from "react";
+import { Card } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Star, ShoppingCart, Heart, Share2, Truck, Shield, RotateCcw } from "lucide-react";
 
-function SingleItem() {
+const ProductDetails = () => {
+  const product = {
+    name: "Acer Aspire 3 Intel Celeron Dual Core",
+    description: "8 GB/128 GB SSD/Windows 11 Home A311-45 Thin and Light Laptop 11.6 inch, Steel Grey, 1.0 kg",
+    price: 14990,
+    discountPercent: 30,
+    brand: "Acer",
+    stock: 0,
+    images: [
+      "https://rukminim2.flixcart.com/image/312/312/xif0q/computer/t/i/e/15-g9-thin-and-light-laptop-hp-original-imah9h2gc9hyn5xg.jpeg?q=70"
+    ],
+    ratings: {
+      avgNumber: 5
+    },
+    specification: [
+      {
+        key: "Processor",
+        value: "Intel Celeron Dual Core"
+      },
+      {
+        key: "RAM",
+        value: "8 GB"
+      },
+      {
+        key: "Storage",
+        value: "128 GB SSD"
+      },
+      {
+        key: "OS",
+        value: "Windows 11 Home"
+      }
+    ]
+  };
+
+  const originalPrice = product.price / (1 - product.discountPercent / 100);
+  const savings = originalPrice - product.price;
+
   return (
-    <div className="container mt-10">
-      <section className="flex md:flex-row flex-col md:items-center gap-10" id="product details">
-        <div className="w-full md:w-1/2">
-          <img
-            src="https://images.unsplash.com/photo-1622782914767-404fb9ab3f57?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fG1vYmlsZXxlbnwwfHwwfHx8MA%3D%3D"
-            alt="image"
-            className="w-full max-h-[350px] object-cover rounded-t-lg "
-          />
-        </div>
-        <div className="w-full md:w-1/2">
-          <div className="text-left">
-            <h1 className="text-lg mb-1  font-semibold">HP Pavillion</h1>
-            <div className="custom_center gap-10">
-              {" "}
-              <Rating />
-              <div className="custom_center gap-2 text-teal">
-                <Check size={"20px"} />{" "}
-                <span className="text-dark text-sm">231 Sold</span>
-              </div>
+    <div className="min-h-screen bg-background">
+      <div className="container mx-auto px-4 py-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          {/* Product Image Section */}
+          <div className="space-y-4">
+            <div className="aspect-square bg-card rounded-lg border overflow-hidden">
+              <img
+                src={product.images[0]}
+                alt={product.name}
+                className="w-full h-full object-contain hover:scale-105 transition-transform duration-300"
+              />
+            </div>
+            <div className="flex gap-2">
+              <Button variant="outline" size="sm" className="flex items-center gap-2">
+                <Heart className="w-4 h-4" />
+                Wishlist
+              </Button>
+              <Button variant="outline" size="sm" className="flex items-center gap-2">
+                <Share2 className="w-4 h-4" />
+                Share
+              </Button>
             </div>
           </div>
-          <div className="flex items-center justify-between w-full gap-6 mt-8">
+
+          {/* Product Info Section */}
+          <div className="space-y-6">
+            <div>
+              <Badge variant="secondary" className="mb-2">{product.brand}</Badge>
+              <h1 className="text-3xl font-bold text-foreground mb-2">{product.name}</h1>
+              <p className="text-muted-foreground">{product.description}</p>
+            </div>
+
+            {/* Rating */}
             <div className="flex items-center gap-2">
-              <h2 className="font-medium text-background text-2xl">₹ 1999 </h2>
-              <p className="text-lg line-through text-teal-500  text-teal">
-                ₹ 9999
-              </p>
-              <span className="text-xs text-light bg-background p-1 rounded-md">
-                30% off
+              <div className="flex items-center gap-1">
+                {[...Array(5)].map((_, i) => (
+                  <Star
+                    key={i}
+                    className={`w-5 h-5 ${
+                      i < product.ratings.avgNumber
+                        ? "fill-gold text-gold"
+                        : "text-muted-foreground"
+                    }`}
+                  />
+                ))}
+              </div>
+              <span className="text-sm text-muted-foreground">
+                ({product.ratings.avgNumber}/5)
               </span>
             </div>
-          </div>
-          <p className=" mt-4 ">
-            Acer One Intel Core i3 11th Gen 1115G4 - (8 GB/512 GB SSD/Windows 11
-            Home) AO 14 Z 8-415 Thin and Light Laptop (14 Inch, Silver, 1.49 Kg)
-          </p>
 
-          <ul type="" className="mt-4 ">
-            <li>Ram : 16 GB </li>
-            <li>Rom : 512 GB</li>
-            <li>Processor : Intel Core i3 11th Gen</li>
-            <li>Display : 14 inch</li>
-          </ul>
-
-          {/* buttons */}
-          <div className="flex-col justify-between mt-10">
-            {/* Quantity Update */}
-            <div className="flex text-teal items-center py-2 px-4 justify-between w-40 border-2 5 border-teal border-solid rounded-md">
-              <Minus cursor={"pointer"} size={"20px"} />
-              <span className="text-black"> 1</span>
-              <Plus cursor={"pointer"} size={"20px"} />
+            {/* Price */}
+            <div className="space-y-2">
+              <div className="flex items-center gap-3">
+                <span className="text-3xl font-bold text-foreground">
+                  ₹{product.price.toLocaleString()}
+                </span>
+                <span className="text-lg text-muted-foreground line-through">
+                  ₹{Math.round(originalPrice).toLocaleString()}
+                </span>
+                <Badge className="bg-green-100 text-green-800 hover:bg-green-100">
+                  {product.discountPercent}% OFF
+                </Badge>
+              </div>
+              <p className="text-sm text-green-600">
+                You save ₹{Math.round(savings).toLocaleString()}
+              </p>
             </div>
-            <div className="custom_center justify-between md:gap-4 mt-4">
-            <Button className="text-light py-5 px-8 border-2 border-background bg-background">
-                ADD TO CART
+
+            {/* Stock Status */}
+            <div>
+              {product.stock === 0 ? (
+                <Badge variant="destructive" className="text-sm">
+                  Out of Stock
+                </Badge>
+              ) : (
+                <Badge className="bg-green-100 text-green-800 hover:bg-green-100 text-sm">
+                  In Stock ({product.stock} left)
+                </Badge>
+              )}
+            </div>
+
+            {/* Specifications */}
+            <Card className="p-4">
+              <h3 className="font-semibold mb-3">Specifications</h3>
+              <div className="space-y-2">
+                {product.specification.map((spec, index) => (
+                  <div key={index} className="flex justify-between py-1">
+                    <span className="text-muted-foreground">{spec.key}:</span>
+                    <span className="font-medium">{spec.value}</span>
+                  </div>
+                ))}
+              </div>
+            </Card>
+
+            {/* Action Buttons */}
+            <div className="space-y-3">
+              <Button
+                size="lg"
+                className="w-full"
+                disabled={product.stock === 0}
+              >
+                <ShoppingCart className="w-5 h-5 mr-2" />
+                {product.stock === 0 ? "Notify When Available" : "Add to Cart"}
               </Button>
               <Button
                 variant="outline"
-                className="bg-white py-5 border-2 border-background text-background  px-8 "
+                size="lg"
+                className="w-full"
+                disabled={product.stock === 0}
               >
-                BUY
+                Buy Now
               </Button>
-          
+            </div>
+
+            {/* Features */}
+            <div className="grid grid-cols-3 gap-4 pt-4 border-t">
+              <div className="text-center">
+                <Truck className="w-6 h-6 mx-auto mb-2 text-primary" />
+                <p className="text-xs text-muted-foreground">Free Delivery</p>
+              </div>
+              <div className="text-center">
+                <Shield className="w-6 h-6 mx-auto mb-2 text-primary" />
+                <p className="text-xs text-muted-foreground">1 Year Warranty</p>
+              </div>
+              <div className="text-center">
+                <RotateCcw className="w-6 h-6 mx-auto mb-2 text-primary" />
+                <p className="text-xs text-muted-foreground">7 Days Return</p>
+              </div>
             </div>
           </div>
         </div>
-      </section>
+      </div>
     </div>
   );
-}
+};
 
-export default SingleItem;
+export default ProductDetails;

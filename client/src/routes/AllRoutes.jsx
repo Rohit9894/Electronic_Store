@@ -7,6 +7,7 @@ import Cart from "./Cart";
 import PlaceOrder from "./PlaceOrder";
 import Auth from "./Auth";
 import PrivateRoute from "@/components/auth/PrivateRoute";
+import Checkout from "./Checkout";
 
 function AllRoutes() {
   return (
@@ -30,7 +31,7 @@ function AllRoutes() {
           </PrivateRoute>
         }
       />
-      <Route path="/order-details" element={<PlaceOrder />} />
+      <Route path="/checkout" element={<Checkout />} />
     </Routes>
   );
 }
